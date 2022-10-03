@@ -32,13 +32,14 @@ function updateIphone11PriceIncreaseDecrease(product, isIncrease) {
 }
 // Handle Phone Plus Event Button Function
 phonePlusBtn.addEventListener('click', function () {
-    updateIphone11PriceIncreaseDecrease('phone', true)
+    updateIphone11PriceIncreaseDecrease('phone', true);
+    updateSubtotal();
 
 });
 // Handle Phone Minus Button Function
 phoneMinusBtn.addEventListener('click', function () {
-    updateIphone11PriceIncreaseDecrease('phone', false)
-
+    updateIphone11PriceIncreaseDecrease('phone', false);
+    updateSubtotal();
 });
 
 
@@ -70,9 +71,31 @@ function updateCasePriceIncreaseDecrease(product, isIncrease) {
 }
 // Handle Case Plus Event Button Function
 casePlusBtn.addEventListener('click', function () {
-    updateCasePriceIncreaseDecrease('case', true)
+    updateCasePriceIncreaseDecrease('case', true);
+    updateSubtotal();
 });
 // Handle Case Minus Event Button Function
 caseMinusBtn.addEventListener('click', function () {
     updateCasePriceIncreaseDecrease('case', false)
+    updateSubtotal()
 });
+
+// Handle Subtotal Tax And Total Price 
+function updateSubtotal() {
+    const phoneInput = document.getElementById('phone-input');
+    const caseInput = document.getElementById('case-input');
+    // console.log(phoneInput);
+    // console.log(caseInput);
+
+    const phoneInputValue = parseInt(phoneInput.value) * 1219;
+    const caseInputValue = parseInt(caseInput.value) * 59;
+    const phoneCaseTotalPrice = phoneInputValue + caseInputValue;
+
+    // Get SubTotal
+    const subTotal = document.getElementById('sub-total').innerText = phoneCaseTotalPrice;
+    const tax = subTotal / 100 * 10;
+    document.querySelector('#tax-amount').innerText = tax;
+    const totalPrice = subTotal + tax;
+    document.getElementById('total-price').innerText = totalPrice;
+
+}
